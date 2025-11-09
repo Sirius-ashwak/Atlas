@@ -1,19 +1,32 @@
 services:
+  # Atlas Dashboard - Streamlit Web Interface
   - type: web
-    name: ai-edge-allocator-dashboard
+    name: atlas-dashboard
     env: python
     region: oregon
     plan: free
-    branch: Web
-    rootDir: ai_edge_allocator
+    branch: main
     buildCommand: pip install -r requirements_streamlit.txt
     startCommand: streamlit run python_scripts/dashboard/streamlit_inference_app.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.0
+        value: "3.11.0"
       - key: STREAMLIT_SERVER_HEADLESS
-        value: true
+        value: "true"
       - key: STREAMLIT_SERVER_ENABLE_CORS
-        value: false
+        value: "false"
       - key: STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION
-        value: true
+        value: "true"
+  
+  # Atlas API - FastAPI Backend
+  - type: web
+    name: atlas-api
+    env: python
+    region: oregon
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements_api.txt
+    startCommand: uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.0"
