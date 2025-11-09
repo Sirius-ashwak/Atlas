@@ -4,10 +4,22 @@ uvicorn[standard]==0.27.0
 pydantic==2.5.3
 python-multipart==0.0.6
 
-# Already in main requirements.txt but needed for API
+# Core ML Dependencies (needed for model loading)
 torch>=2.0.0
 numpy>=1.24.0
 stable-baselines3>=2.0.0
+gymnasium>=0.29.0
 
-# Optional for production
-gunicorn==21.2.0  # For production deployment
+# Graph Neural Networks
+torch-geometric>=2.4.0
+
+# Configuration
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
+# Utilities
+pandas>=2.0.0
+networkx>=3.1
+
+# Production server
+gunicorn==21.2.0

@@ -1,32 +1,19 @@
 services:
-  # Atlas Dashboard - Streamlit Web Interface
-  - type: web
-    name: atlas-dashboard
-    env: python
-    region: oregon
-    plan: free
-    branch: main
-    buildCommand: pip install -r requirements_streamlit.txt
-    startCommand: streamlit run python_scripts/dashboard/streamlit_inference_app.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true
-    envVars:
-      - key: PYTHON_VERSION
-        value: "3.11.0"
-      - key: STREAMLIT_SERVER_HEADLESS
-        value: "true"
-      - key: STREAMLIT_SERVER_ENABLE_CORS
-        value: "false"
-      - key: STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION
-        value: "true"
-  
-  # Atlas API - FastAPI Backend
+  # Atlas API - FastAPI Backend (Deploy this first)
   - type: web
     name: atlas-api
     env: python
     region: oregon
     plan: free
     branch: main
-    buildCommand: pip install -r requirements_api.txt
-    startCommand: uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+    buildCommand: |
+      python -m pip install --upgrade pip
+      pip install -r requirements_api.txt
+      pip install -e .
+    startCommand: python -m uvicorn src.api.main:app --host 0.0.0.0 --port $PORT --log-level info
+    healthCheckPath: /health
     envVars:
       - key: PYTHON_VERSION
-        value: "3.11.0"
+        value: "3.11"
+      - key: PYTHONUNBUFFERED
+        value: "1"
