@@ -1,0 +1,19 @@
+deployment:
+  api_port: 8000
+  dashboard_port: 8501
+  model_serving: true
+gnn:
+  conv_type: GAT
+  dropout: 0.1
+  heads: 2
+  hidden_dim: 32
+  num_layers: 2
+model:
+  architecture: Hybrid-DQN-PPO-GAT
+  path: models/phase3_gat/efficient_gat_best.pt
+  performance:
+    improvement_over_baseline: -82.2
+    reward: 43.9
+    status: trained_on_real_data
+    training_date: '2025-10-07T20:18:02'
+  type: GAT

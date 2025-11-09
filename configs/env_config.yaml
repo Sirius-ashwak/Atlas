@@ -1,0 +1,36 @@
+# Environment Configuration
+# Defines IoT edge computing environment parameters
+
+environment:
+  name: "IoTEdgeAllocation-v0"
+  
+  # Observation space
+  observation:
+    num_nodes: 37          # fog nodes + sensors + cloud
+    node_features: 6       # [cpu_util, mem_util, energy, latency, bandwidth, queue_len]
+    edge_features: 3       # [bandwidth, latency, reliability]
+    use_graph: true        # whether to use GNN encoder
+  
+  # Action space
+  action:
+    type: "discrete"       # discrete or continuous
+    num_actions: 37        # where to place each task (one per node)
+  
+  # Reward shaping
+  reward:
+    latency_weight: -1.0   # penalty for high latency
+    energy_weight: -0.5    # penalty for energy consumption
+    qos_weight: 2.0        # reward for meeting QoS requirements
+    balance_weight: 0.3    # reward for load balancing
+    
+  # Episode settings
+  episode:
+    max_steps: 100         # steps per episode
+    task_arrival_rate: 5   # tasks arriving per step (Poisson)
+    
+  # Simulation parameters
+  simulation:
+    time_step: 1.0         # seconds per environment step
+    network_delay_range: [5, 50]  # ms
+    cpu_capacity_range: [1000, 4000]  # MIPS
+    energy_coefficient: 0.01  # energy per computation unit

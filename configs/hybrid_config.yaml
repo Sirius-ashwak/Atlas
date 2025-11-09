@@ -1,0 +1,69 @@
+# Hybrid RL Configuration
+# Combines DQN (discrete actions) + PPO (policy gradient) + GNN (graph encoding)
+
+hybrid:
+  mode: "ensemble"  # "ensemble" or "hierarchical"
+  
+  # Model architecture
+  architecture:
+    use_gnn: true
+    gnn_hidden_dim: 64
+    gnn_num_layers: 3
+    gnn_conv_type: "GCN"  # GCN, GAT, GraphSAGE
+    
+    shared_mlp: [256, 128]  # shared feature extractor after GNN
+    
+  # DQN component (for discrete action selection)
+  dqn:
+    enabled: true
+    learning_rate: 0.0001
+    buffer_size: 100000
+    learning_starts: 1000
+    batch_size: 64
+    tau: 0.005  # soft update coefficient
+    gamma: 0.99
+    exploration_fraction: 0.3
+    exploration_initial_eps: 1.0
+    exploration_final_eps: 0.05
+    target_update_interval: 500
+    
+  # PPO component (for policy refinement)
+  ppo:
+    enabled: true
+    learning_rate: 0.0003
+    n_steps: 2048
+    batch_size: 64
+    n_epochs: 10
+    gamma: 0.99
+    gae_lambda: 0.95
+    clip_range: 0.2
+    ent_coef: 0.01
+    vf_coef: 0.5
+    max_grad_norm: 0.5
+    
+  # Hybrid fusion strategy
+  fusion:
+    strategy: "weighted_sum"  # "weighted_sum", "attention", "gating"
+    dqn_weight: 0.6
+    ppo_weight: 0.4
+    temperature: 1.0  # for action distribution mixing
+    
+  # Training settings
+  training:
+    total_timesteps: 500000
+    eval_freq: 5000
+    n_eval_episodes: 10
+    log_interval: 1000
+    save_freq: 10000
+    
+  # Checkpointing
+  checkpoint:
+    save_path: "models/hybrid"
+    load_path: null  # set to path for resume training
+    
+  # Tensorboard logging
+  tensorboard:
+    log_dir: "logs/hybrid"
+    
+  # Reproducibility
+  seed: 42

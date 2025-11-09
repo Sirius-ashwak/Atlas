@@ -1,0 +1,57 @@
+# iFogSim Configuration
+# Parameters for Java simulation backend
+
+simulation:
+  # Topology
+  topology:
+    num_fog_nodes: 10
+    num_sensors: 8
+    num_actuators: 2
+    num_cloud_servers: 1
+    
+  # Node specifications
+  fog_node:
+    mips: 2800  # million instructions per second
+    ram: 4000   # MB
+    uplink_bandwidth: 100  # Mbps
+    downlink_bandwidth: 100
+    busy_power: 107.339  # watts
+    idle_power: 83.433
+    
+  cloud_node:
+    mips: 40000
+    ram: 40000
+    uplink_bandwidth: 1000
+    downlink_bandwidth: 1000
+    busy_power: 200.0
+    idle_power: 150.0
+    
+  sensor:
+    transmission_interval: 5  # seconds
+    packet_size: 1000  # bytes
+    
+  # Network
+  network:
+    latency_per_hop: 2  # ms
+    bandwidth_fog_to_fog: 100  # Mbps
+    bandwidth_sensor_to_fog: 50
+    bandwidth_fog_to_cloud: 200
+    
+  # Workload
+  workload:
+    num_applications: 3
+    task_length: 1000  # MI (million instructions)
+    task_cpu_req: 500  # MIPS required
+    task_ram_req: 100  # MB
+    deadline: 50  # ms
+    
+  # Simulation runtime
+  runtime:
+    simulation_time: 300  # seconds
+    polling_interval: 1.0
+    
+  # Output
+  output:
+    results_file: "data/raw/sim_results.csv"
+    log_level: "INFO"  # DEBUG, INFO, WARN, ERROR
+    enable_logging: true

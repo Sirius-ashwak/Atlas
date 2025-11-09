@@ -1,0 +1,13 @@
+# Dockerfile for IoT Device Simulator
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install dependencies
+RUN pip install --no-cache-dir paho-mqtt
+
+# Copy simulator script
+COPY iot_device_simulator.py /app/
+
+# Run simulator
+CMD ["python", "-u", "iot_device_simulator.py", "--broker", "${MQTT_BROKER:-mqtt-broker}", "--port", "${MQTT_PORT:-1883}", "--num-devices", "${NUM_DEVICES:-10}", "--interval", "${INTERVAL:-5}"]

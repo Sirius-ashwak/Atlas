@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: ai-edge-allocator-dashboard
+    env: python
+    region: oregon
+    plan: free
+    branch: Web
+    rootDir: ai_edge_allocator
+    buildCommand: pip install -r requirements_streamlit.txt
+    startCommand: streamlit run python_scripts/dashboard/streamlit_inference_app.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: STREAMLIT_SERVER_HEADLESS
+        value: true
+      - key: STREAMLIT_SERVER_ENABLE_CORS
+        value: false
+      - key: STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION
+        value: true

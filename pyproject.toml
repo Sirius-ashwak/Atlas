@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "atlas-iot"
+version = "0.1.0"
+description = "Atlas: Map. Decide. Optimize. - Hybrid DQN-PPO-GNN resource allocator for IoT edge computing"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+keywords = ["reinforcement-learning", "gnn", "iot", "edge-computing", "ifogsim"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+dependencies = [
+    "gymnasium>=0.29.0",
+    "stable-baselines3>=2.1.0",
+    "torch>=2.0.0",
+    "torch-geometric>=2.4.0",
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "pyyaml>=6.0",
+    "tensorboard>=2.14.0",
+    "matplotlib>=3.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "black>=23.7.0",
+    "flake8>=6.1.0",
+    "jupyter>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/ai-edge-allocator"
+Repository = "https://github.com/yourusername/ai-edge-allocator"
+Documentation = "https://github.com/yourusername/ai-edge-allocator/wiki"
+
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311']
+include = '\.pyi?$'
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"

@@ -1,0 +1,8 @@
+{
+  "experiment": "Phase3_GAT",
+  "date": "2025-10-07T19:07:39.586359",
+  "architecture": "GAT",
+  "best_reward": 273.1584256310148,
+  "convergence_step": 4500,
+  "improvement_percent": 11.030983509883248
+}

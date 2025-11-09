@@ -1,0 +1,61 @@
+hybrid:
+  architecture:
+    gat_concat: true
+    gat_dropout: 0.1
+    gat_heads: 4
+    gnn_conv_type: GAT
+    gnn_hidden_dim: 64
+    gnn_num_layers: 3
+    shared_mlp:
+    - 256
+    - 128
+    use_gnn: true
+  checkpoint:
+    load_path: null
+    save_path: models/hybrid
+  dqn:
+    batch_size: 64
+    buffer_size: 100000
+    enabled: true
+    exploration_final_eps: 0.05
+    exploration_fraction: 0.3
+    exploration_initial_eps: 1.0
+    gamma: 0.99
+    learning_rate: 0.0001
+    learning_starts: 1000
+    target_update_interval: 500
+    tau: 0.005
+  fusion:
+    attention_hidden_dim: 64
+    dqn_weight: 0.6
+    ppo_weight: 0.4
+    strategy: attention
+    temperature: 0.5
+  mode: ensemble
+  ppo:
+    batch_size: 64
+    clip_range: 0.2
+    enabled: true
+    ent_coef: 0.01
+    gae_lambda: 0.95
+    gamma: 0.99
+    learning_rate: 0.0003
+    max_grad_norm: 0.5
+    n_epochs: 10
+    n_steps: 2048
+    vf_coef: 0.5
+  seed: 42
+  tensorboard:
+    log_dir: logs/hybrid
+  training:
+    early_stopping:
+      enabled: true
+      min_delta: 0.5
+      mode: max
+      monitor: mean_reward
+      patience: 3
+    eval_freq: 500
+    log_interval: 1000
+    n_eval_episodes: 10
+    save_freq: 10000
+    total_timesteps: 5000

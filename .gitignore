@@ -1,0 +1,365 @@
+# ============================================
+# Atlas: Map. Decide. Optimize. - .gitignore
+# ============================================
+
+# -----------------
+# Python
+# -----------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+.virtualenv/
+pipenv/
+poetry/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+*.ipynb_temp
+
+# -----------------
+# IDEs
+# -----------------
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json.example
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Rope
+.ropeproject
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# -----------------
+# Type Checkers & Linters
+# -----------------
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre
+.pyre/
+
+# pytype
+.pytype/
+
+# pylint
+.pylint.d/
+
+# Cython debug symbols
+cython_debug/
+
+# ruff
+.ruff_cache/
+
+# -----------------
+# Data Files
+# -----------------
+data/raw/*.csv
+data/raw/*.json
+data/raw/*.txt
+data/processed/*.csv
+data/processed/*.json
+!data/processed/extended_network_metrics.csv
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.parquet
+*.feather
+
+# -----------------
+# Model Checkpoints & Weights
+# -----------------
+models/**/*
+!models/.gitkeep
+!models/README.md
+*.pt
+*.pth
+*.ckpt
+*.zip
+*.safetensors
+*.bin
+*.onnx
+*.pb
+checkpoint-*/
+wandb-runs/
+
+# -----------------
+# Logs & Monitoring
+# -----------------
+logs/
+logs/*/
+*.log
+*.log.*
+tensorboard_logs/
+wandb/
+mlruns/
+.neptune/
+aim/
+*.tfevents.*
+
+# -----------------
+# OS Specific
+# -----------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# Editor backups
+*.swp
+*.swo
+*.swn
+*~
+
+# -----------------
+# Java & Build Tools
+# -----------------
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+target/
+.gradle/
+build/
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# Maven
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Eclipse
+.settings/
+.classpath
+.project
+.metadata/
+
+# IntelliJ IDEA
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+
+# -----------------
+# Node.js / React (web-app)
+# -----------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-store/
+package-lock.json.bak
+yarn.lock.bak
+
+# Build outputs
+dist/
+dist-ssr/
+*.local
+
+# -----------------
+# Docker
+# -----------------
+*.dockerignore.bak
+.docker/
+docker-compose.override.yml
+
+# -----------------
+# Temporary Files
+# -----------------
+*.tmp
+*.temp
+*.bak
+*.backup
+*.cache
+.cache/
+
+# -----------------
+# Test Coverage & Reports
+# -----------------
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+.tox/
+.nox/
+*.cover
+nosetests.xml
+test-results/
+junit.xml
+
+# -----------------
+# Experiment Results
+# -----------------
+reports/figures/*.png
+reports/figures/*.pdf
+reports/figures/*.svg
+reports/*.html
+reports/optimization/*.json
+!reports/experiments.md
+!reports/model_comparison.md
+!reports/README.md
+
+# -----------------
+# Documentation - Generated Files Only
+# -----------------
+# Keep source .md files, ignore generated docs
+docs/_build/
+docs/.build/
+docs/site/
+docs/.doctrees/
+*.rst~
+docs/**/*.html
+docs/**/*.pdf
+!docs/**/*.md
+
+# -----------------
+# Environment & Secrets
+# -----------------
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+secrets.yaml
+credentials.json
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+.secrets/
+.credentials/
+
+# -----------------
+# MQTT & Messaging
+# -----------------
+mqtt/data/
+mqtt/logs/
+*.mosquitto_db
+
+# -----------------
+# Streamlit
+# -----------------
+.streamlit/secrets.toml
+
+# -----------------
+# Database
+# -----------------
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# -----------------
+# Cloud & Deployment
+# -----------------
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+.azure/
+.aws/
+.gcp/
+
+# -----------------
+# Git Related
+# -----------------
+*.orig
+*.rej
+.git/
+.gitattributes.bak
+
+# -----------------
+# Archives
+# -----------------
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# -----------------
+# Keep These Files
+# -----------------
+!.gitkeep
+!README.md
+!LICENSE
+!requirements*.txt
+!pyproject.toml
+!setup.py
+!Dockerfile*
+!docker-compose*.yml

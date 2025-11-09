@@ -1,0 +1,103 @@
+version: '3.8'
+
+# Docker Compose for Option 4: Hybrid Simulation Setup
+# Includes MQTT broker, API, Dashboard, and IoT Simulator
+
+services:
+  # Eclipse Mosquitto MQTT Broker
+  mqtt-broker:
+    image: eclipse-mosquitto:2.0
+    container_name: iot-mqtt-broker
+    ports:
+      - "1883:1883"  # MQTT
+      - "9001:9001"  # MQTT over WebSocket
+    volumes:
+      - ./mqtt/config:/mosquitto/config
+      - ./mqtt/data:/mosquitto/data
+      - ./mqtt/log:/mosquitto/log
+    networks:
+      - edge-allocator-network
+    healthcheck:
+      test: ["CMD", "mosquitto_sub", "-t", "$$SYS/#", "-C", "1", "-i", "health-check", "-W", "3"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # FastAPI Inference Server (with MQTT integration)
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: edge-allocator-api
+    ports:
+      - "8000:8000"
+    environment:
+      - MQTT_BROKER=mqtt-broker
+      - MQTT_PORT=1883
+      - MODEL_PATH=/app/models
+    volumes:
+      - ./models:/app/models:ro
+      - ./logs:/app/logs
+    depends_on:
+      - mqtt-broker
+    networks:
+      - edge-allocator-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Streamlit Real-time Dashboard
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
+    container_name: edge-allocator-dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000
+      - MQTT_BROKER=mqtt-broker
+      - MQTT_PORT=1883
+    depends_on:
+      - api
+      - mqtt-broker
+    networks:
+      - edge-allocator-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # IoT Device Simulator
+  iot-simulator:
+    build:
+      context: .
+      dockerfile: Dockerfile.simulator
+    container_name: iot-device-simulator
+    environment:
+      - MQTT_BROKER=mqtt-broker
+      - MQTT_PORT=1883
+      - NUM_DEVICES=15
+      - INTERVAL=5
+    depends_on:
+      - mqtt-broker
+    networks:
+      - edge-allocator-network
+    restart: unless-stopped
+
+networks:
+  edge-allocator-network:
+    driver: bridge
+    name: edge-allocator-network
+
+volumes:
+  mqtt-data:
+    name: mqtt-data
+  mqtt-logs:
+    name: mqtt-logs
